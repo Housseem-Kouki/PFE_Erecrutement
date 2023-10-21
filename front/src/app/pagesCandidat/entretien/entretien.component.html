@@ -1,0 +1,87 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(./assets/img/bc2.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-3"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-9 col-md-10">
+     
+        <h1 class="display text-white"> Vous pouvez consulter vos entretiens</h1>      
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Page content -->
+  <div class="container-fluid mt--8">
+    <!-- Table -->
+   
+    <!-- Dark table -->
+     <!--langue affichage -->
+     <div *ngFor="let candidature of lescandidatures">
+       <div *ngIf="candidature.candidat_id == candidatcurr.id ">
+        <div *ngFor="let entretien of lesentretiens">
+        <ng-container *ngIf="entretien.candidature_id == candidature.id ">
+        <div class="col-md-12 order-xl-2 mb-3 mb-xl-0">
+          <div class="card card-profile shadow">
+         <div class="row justify-content-center">     
+           </div> 
+           <div class="card-body pt-0 pt-md-9" style="border-radius :2px;">
+            <div *ngFor="let offre of lesoffres">
+              <div *ngIf="candidature.offre_id == offre.id ">
+            <p> Nous avons le plaisir de vous informer que votre candidature au poste {{offre.poste}}, a été retenue.</p>
+              </div>
+            </div>
+            <p class="font-weight-bold">Entretien numéro : {{entretien.id}}</p>
+
+                  <div class="card card-stats mb-4 mb-xs-4">
+                    <div class="card-body">
+                      <p class="mt-3 mb-0 text-muted text-sm">
+                        <span class="mb-0">
+
+                          <div class="row">
+                            <div class="col">
+                            <span class="font-weight-bold">   Date entretien </span>
+                          </div>
+                          <div class="col">
+                          <span class="font-weight-bold">   Candidature numéro </span>
+                        </div>
+                          <div class="col">
+                          <span class="font-weight-bold">   Déroulement de l'entretien</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col">
+                            {{entretien.dateentretien | date:'medium' }}
+                        </div>
+                        <div class="col">
+                          {{entretien.candidature_id }}
+                      </div>
+                   
+                        <div class="col">
+                          {{entretien.etat }}
+                          </div>
+                      </div>
+                         </span>
+                      </p><br>
+                      <div class="row justify-content-md-center">
+                        <div class="col "><span class="font-weight-bold">  Commentaire de l'agent RH</span>
+                         <p >
+                          {{entretien.commentaire}}</p> 
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+            </div>
+      </div>
+    </div>
+  </ng-container>
+  
+     </div>
+     <br>
+</div>
+</div>
+    <!-- Dark table -->
+    

@@ -1,0 +1,295 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(./assets/img/bc2.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-3"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display text-white">Ceci est la rubrique de gestion des utilisateurs , consulter les utilisateurs de l'application , ajouter ,modifier supprimer ,
+          un agent du département resource humain de la banque ou un candidat </h1>
+    
+      
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Page content -->
+  <div class="container-fluid mt--5">
+    <!-- Table -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row">
+            <h3 class="col" >Liste des Utilisateurs </h3>
+            <!-- Modal Ajouter RH -->
+        <ng-template #contentAgent let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Ajouter Agent RH </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form  #fup="ngForm" (ngSubmit) = "ajouterAgent()">
+
+              
+              <div class="form-group">
+                <label for="dateOfBirth">Nom</label>
+                <div class="input-group">
+                  <input type="text" class="form-control"  [(ngModel)]="registerUserData.nom" required name="nom"  >
+                </div>
+              </div>
+      
+              <div class="form-group">
+                <label for="dateOfBirth">Prénom</label>
+                <div class="input-group">
+                  <input type="text" class="form-control"  [(ngModel)]="registerUserData.prenom" required name="prenom"  >
+                </div>
+              </div>
+      
+              <div class="form-group">
+                <label for="dateOfBirth">Tel</label>
+                <div class="input-group">
+                  <input type="number" class="form-control"  [(ngModel)]="registerUserData.tel" required name="tel"  >
+                </div>
+              </div>
+      
+              <div class="form-group">
+                <label for="dateOfBirth">Email</label>
+                <div class="input-group">
+                  <input type="email" class="form-control"  [(ngModel)]="registerUserData.email" required name="email" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dateOfBirth">Date</label>
+                <div class="input-group">
+                  <input type="date" class="form-control"  [(ngModel)]="registerUserData.daten" required name="daten"  >
+                </div>
+              </div>
+      
+          
+
+              <div class="form-group">
+                <label for="civilite">Civilité :</label>
+                <select name="civilite" id="civilite" class="form-control"  [(ngModel)]="registerUserData.civilite" >
+                  <option selected>-------</option>
+                  <option  value = "Homme">Homme</option>civilite
+                  <option value="Femme">Femme</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                  <input type="text"  class="form-control"  [(ngModel)]="registerUserData.password" required name="password"   >
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-dark">Save</button>
+              </div>
+            </form>
+          </div>
+          
+        </ng-template>
+            <button class="col btn btn-outline-primary btn-sm" (click)="open(contentAgent)" >Ajouter Agent RH</button>
+           <!-- Modal Ajouter Candidat -->
+           <ng-template #contentUser let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Ajouter Candidat </h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form  #fup="ngForm" (ngSubmit) = "ajouterUser()">
+  
+                
+                <div class="form-group">
+                  <label for="dateOfBirth">Nom</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control"  [(ngModel)]="registerUserData.nom" required name="nom"  >
+                  </div>
+                </div>
+        
+                <div class="form-group">
+                  <label for="dateOfBirth">Prénom</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control"  [(ngModel)]="registerUserData.prenom" required name="prenom"  >
+                  </div>
+                </div>
+        
+                <div class="form-group">
+                  <label for="dateOfBirth">Tel</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control"  [(ngModel)]="registerUserData.tel" required name="tel"  >
+                  </div>
+                </div>
+        
+                <div class="form-group">
+                  <label for="dateOfBirth">Email</label>
+                  <div class="input-group">
+                    <input type="email" class="form-control"  [(ngModel)]="registerUserData.email" required name="email" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="dateOfBirth">Date</label>
+                  <div class="input-group">
+                    <input type="date" class="form-control"  [(ngModel)]="registerUserData.daten" required name="daten"  >
+                  </div>
+                </div>
+        
+                
+  
+                <div class="form-group">
+                  <label for="civilite">Civilité :</label>
+                  <select name="civilite" id="civilite" class="form-control"  [(ngModel)]="registerUserData.civilite" >
+                    <option selected>-------</option>
+                    <option  value = "Homme">Homme</option>civilite
+                    <option value="Femme">Femme</option>
+                  </select>
+                </div>
+  
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <div class="input-group">
+                    <input type="text"  class="form-control"  [(ngModel)]="registerUserData.password" required name="password"   >
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-outline-dark">Save</button>
+                </div>
+              </form>
+            </div>
+            
+          </ng-template>
+
+            <button class="col btn btn-outline-primary btn-sm" (click)="open(contentUser)">Ajouter Candidat</button>
+          </div>
+          <input type="text" placeholder="Recherche" [(ngModel)]="nom" (input)="Search()"/>
+          {{nom}}
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Prénom</th>
+                  <th scope="col">email</th>
+                  <th scope="col">roles</th>
+                  <th scope="col">Creé le</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr scope="row" *ngFor="let u of lesusers"  >
+                  
+                  <th >{{u.id}}</th>
+                 <td>{{u.nom}}</td>
+                 <td>{{u.prenom}}</td>
+                 <td>{{u.email}}</td>
+                 <td>{{u.roles}}</td>
+                 <td>{{u.createdAt | date: 'longDate'}}</td>
+                 <td >
+                  <div ngbDropdown  placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only "  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownToggle class=" dropdown-menu-right dropdown-menu-arrow">
+                      <div ngbDropdownMenu>
+                      <ng-template #content let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-basic-title">Modifier User </h4>
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form  #fup="ngForm"  (ngSubmit) = "modifier(fup,u.id)">
+                            <div class="form-group">
+                              <label for="dateOfBirth">Id</label>
+                              <div class="input-group">
+                                <input name="id" class="form-control" readonly [ngModel]="u.id"  >
+                              </div>
+                            </div>
+                            
+                            <div class="form-group">
+                              <label for="dateOfBirth">Nom</label>
+                              <div class="input-group">
+                                <input name="nom" class="form-control"  [ngModel]="u.nom"  >
+                              </div>
+                            </div>
+                    
+                            <div class="form-group">
+                              <label for="dateOfBirth">Prénom</label>
+                              <div class="input-group">
+                                <input name="prenom" class="form-control" [ngModel]="u.prenom"   >
+                              </div>
+                            </div>
+                    
+                            <div class="form-group">
+                              <label for="dateOfBirth">Tel</label>
+                              <div class="input-group">
+                                <input name="tel" class="form-control" [ngModel]="u.tel"  >
+                              </div>
+                            </div>
+                    
+                            <div class="form-group">
+                              <label for="dateOfBirth">Email</label>
+                              <div class="input-group">
+                                <input name="email" class="form-control"  [ngModel]="u.email"   >
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="dateOfBirth">Date</label>
+                              <div class="input-group">
+                                <input type="date" name="daten" placeholder="u.daten" class="form-control" [ngModel]="u.daten"   >
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="civilite">Civilité :</label>
+                              <select name="civilite" id="civilite" class="form-control"  [ngModel]="selectedValue" >
+                       
+                                <option  [ngValue]="Homme">Homme</option>civilite
+                                <option [ngValue]="Femme">Femme</option>
+                              </select>
+                            </div>
+                    
+                            <div class="form-group">
+                              <label for="dateOfBirth">Role</label>
+                              <div class="input-group">
+                                <input type="text" name="roles" class="form-control" [ngModel]="u.roles"  readonly  >
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-outline-dark">Enregistrer</button>
+                            </div>
+                          </form>
+                        </div>
+                        
+                      </ng-template>
+                      <button ngbDropdownItem (click)="open(content)">Détails</button>
+                      <div><button ngbDropdownItem (click)="deleteUser(u.id)">Supprimer</button></div>
+                    </div>
+                    </div>
+                  </div>
+                </td>
+               
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer py-4">
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+
+
+  

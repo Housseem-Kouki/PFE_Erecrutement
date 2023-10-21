@@ -1,0 +1,208 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(./assets/img/bc2.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-3"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display text-white"> Vous pouvez consulter détails de candidat et  accepter ou refuser sa candidature</h1>
+
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid mt--9">
+
+
+
+      <div *ngFor="let offre of lesoffres">
+      <div class="container" >  
+                <div  class="card">
+                    <div class="card-header card-header-warning">
+                      Les candidatures pour la poste :
+                     <div class="text-center"><h4>{{offre.poste}}</h4></div><br>
+
+                     <div class="input-group rounded">
+                      <input type="text" placeholder="Recherche" class="form-control" [(ngModel)]="nomcandidat" (input)="Search()"/>
+                      
+                    </div>
+                    </div>
+                    <div *ngFor="let candidature of lescandid">
+                    <div class="card-body "  *ngIf="offre.id == candidature.offre_id">
+                 
+                    
+                      <div *ngFor="let candidat of lescandidats">
+                        <div *ngIf="candidature.candidat_id == candidat.id">
+                          <div *ngFor="let user of lesusers">
+                            <div *ngIf="candidat.user_id == user.id">
+                              <div class="card card-profile shadow">
+                                <div class="card-body pt-0 pt-md-2" style="border-radius :2px;">
+                                  <div class="mt-3 mb-0 text-muted text-sm">
+                                    <div class="row">
+                                      <div class="col">  Numéro Candidture : </div>
+                                      <div class="col"> Candidat :  </div>
+                                      <div class="col">Email :  </div>
+                                      <div class="col"> Date du dépot : </div>
+                                      <div class="col"> Status : </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col"> {{candidature.id}}   </div>
+                                      <div class="col"> {{user.nom}} {{user.prenom}} </div>
+                                      <div class="col">{{user.email}}  </div>
+                                      <div class="col"> {{candidature.createdAt | date: 'longDate'}} </div>
+                                      <div class="col">
+                                        <ng-container *ngIf="candidature.status == 1">
+                                          <span class="text-white bg-green">Candidature Accpté</span> 
+                                        </ng-container>
+                                        <ng-container *ngIf="candidature.status == 2">
+                                          <span class="text-white bg-yellow">Candidature en cours</span> 
+                                        </ng-container>
+                                        <ng-container *ngIf="candidature.status == 0">
+                                          <span class="text-white bg-red">Candidature réfusé</span> 
+                                        </ng-container>
+                                  </div>
+                                    </div> <br> 
+                                    
+                                   <div class="text-center">
+                                  
+                                       <button type="button" (click)="openScrollableContent(longContent)"  class="btn btn-primary btn-sm">Détails Candidat</button>
+                                  
+                                    <!--Modal prendre entretien-->
+                                    
+                                    <ng-template #content let-modal>
+                                      <div class="modal-header">
+                                   <h4 class="modal-title" id="modal-basic-title">Prendre un entretien</h4>
+                          
+                                      
+                                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="font-weight-light">  Candidat : {{user.nom}}  {{user.prenom}}  </div><br>
+                                        <div class="font-weight-light">  Email Candidat : {{user.email}} </div><br>
+                                        <div class="font-weight-light">  Tel Candidat : {{user.tel}} </div><br>
+                                        <form  #fen="ngForm" (ngSubmit) = "ajouterEntretien(candidature.id )">
+                                          <div class="form-group">
+                                            <label for="dateOfBirth">Date de l'entretien</label>
+                                            <div class="input-group">
+                                              <input type="date" class="form-control"  [(ngModel)]="registerEntretienData.dateentretien" required  name="dateentretien"  >
+                                              <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group">
+                                            <label for="dateOfBirth">Etat de l'entretien</label>
+                                            <select name="etat" id="etat" class="form-control"  [(ngModel)]="registerEntretienData.etat">
+                                              <option selected>Open this select menu</option>
+                                              <option  value = "En Ligne">En Ligne</option>
+                                              <option value="Présentiel">Présentiel</option>
+                                            </select>
+                                          </div>
+
+                                          <div class="form-group">
+                                            <label for="dateOfBirth">Commentaire : <br> <span>si l'entretien en ligne mettez vous lien meet</span></label><br>
+                                            <textarea class="form-control"  [(ngModel)]="registerEntretienData.commentaire" required name="commentaire"rows="5" cols="33"></textarea>
+                                          </div>
+                                       
+                                     
+                                      <div class="modal-footer">
+                                        <button type="submit" class="btn btn-outline-dark" >Envoyer</button>
+                                      </div>
+                                      </form>
+                                      
+                                    </div>
+                                    </ng-template>
+                                    <!--Modal Détail Candidat-->
+                                   
+                                    
+                                    <ng-template #longContent let-modal>
+                                      <div class="modal-header ">
+                                   
+                                        <h4 class="modal-title "> {{user.nom}} {{user.prenom}}</h4>
+                         
+                                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                       
+                                        <div class="alert alert-secondary" role="alert">  <span class="font-weight-bold"><i class="fas fa-info-circle"></i>  Infos  : </span></div>
+                                        <span style="font-style: oblique;">   Email :  </span>{{user.email}}      <br>
+                                       <span style="font-style: oblique;"> Téléphone :</span> {{user.tel}}    <br>
+                                        <span style="font-style: oblique;">Date de Naissance :</span> {{user.daten | date:'shortDate'}}  <br>
+                                      <span style="font-style: oblique;">  Pays :</span> {{candidat.pays}}  ,<span style="font-style: oblique;"> Gouvernorat :</span> {{candidat.gouvernorat}}  <br>
+                                       <span style="font-style: oblique;"> Code Postal :</span> {{candidat.codepostal}}<br>
+                                        <hr class="my-3">
+                                        <div class="alert alert-secondary" role="alert">
+                                        <span class="font-weight-bold"><i class="ni ni-hat-3"></i> Formation  : </span>
+                                      </div>
+                                        <div *ngFor="let formation of lesformations">
+                                          <div *ngIf="candidat.id == formation.candidat_id">
+                                            <div>
+                                           <span style="font-style: oblique;"> Niveau détude :  </span>{{formation.nivetude}} <br>
+                                           <span style="font-style: oblique;"> Diplome : </span> {{formation.diplome}} <br>
+                                           <span style="font-style: oblique;"> Etablissement: </span> {{formation.etablissement}} <br>
+                                           <span style="font-style: oblique;"> Spécialité:</span>  {{formation.specialite}} <br>
+                                          </div><br></div>
+                                        </div><br><hr class="my-3">
+                                        <div class="alert alert-secondary" role="alert">
+                                        <span class="font-weight-bold"><i class="ni ni-briefcase-24"></i> Expérience  : </span> </div>
+                                        <div *ngFor="let exp of lexperiences">
+                                          <div *ngIf="candidat.id == exp.candidat_id">
+                                         <span style="font-style: oblique;">Profil :</span>  {{exp.profil}} <br>
+                                         <span style="font-style: oblique;"> Durree :</span>  {{exp.durree}} <br>
+                                         <span style="font-style: oblique;"> Contrat:  </span>{{exp.contrat}} <br>
+                                         <span style="font-style: oblique;"> Fonction: </span> {{exp.fonction}} <br>
+                                          </div>
+                                        </div><br><hr class="my-3">
+                                        <div class="alert alert-secondary" role="alert">  <span class="font-weight-bold"><i class="ni ni-world"></i>  Langue  : </span> </div>
+                                        <div *ngFor="let lang of leslangues">
+                                          <div *ngIf="candidat.id == lang.candidat_id">
+                                            <ul class="list-unstyled">
+                                              <li>{{lang.nomlangue}}</li>
+                                            <ul>
+                                              <li>{{lang.niveau}}</li>
+                                            </ul>
+                                          </ul>
+                                        
+                                          </div>
+                                        </div><br><hr class="my-3">
+
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                                      </div>
+                                    </ng-template>
+                               
+                                   <ng-container *ngIf="candidature.status == 2">
+                                    <button class="btn btn-outline-success btn-sm" (click)="open(content)">Accepter la candidature</button>
+                                      <button type="button" (click)="refuserCand(candidature.id)" class="btn btn-outline-danger btn-sm">Réfuser</button> 
+                                    </ng-container>
+                                
+                                </div><!--row-->
+                          
+                            
+                              </div>
+                          </div>
+                              </div>
+                            </div>
+                         </div> 
+                        </div>
+                        </div>
+                   
+                    </div><!--card body-->
+                  </div>
+                  
+                  
+                </div><br><br>
+
+            
+      </div>
+  </div>
+</div>

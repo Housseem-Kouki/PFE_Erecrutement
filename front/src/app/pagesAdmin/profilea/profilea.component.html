@@ -1,0 +1,151 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(./assets/img/bc2.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-3"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Bienvenu {{currentuser.nom}}</h1>
+        <p class="text-white mt-0 mb-5">Ceci est votre page de profil. Vous pouvez consulter et modifier vos informations personnel</p>
+      
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow">
+          <div class="row justify-content-center">
+            <div class="col-lg-3 order-lg-2">
+              <div class="card-profile-image">
+                <a href="javascript:void(0)">
+                  <img src="assets/img/imgprofile.png" class="rounded-circle">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+            <div class="d-flex justify-content-between">
+              <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4"></a>
+              <a href="javascript:void(0)" class="btn btn-sm btn-default float-right"></a>
+            </div>
+          </div>
+          <div class="card-body pt-0 pt-md-4">
+            <div class="row">
+              <div class="col">
+                <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+               
+                  <div>
+                    <span class="heading">{{nbragent}}</span>
+                    <span class="description">Agents RH</span>
+                  </div>
+                  <div>
+                    <span class="heading">{{nbrcandidat}}</span>
+                    <span class="description">Candidats</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <h3>
+                {{currentuser.nom}} {{currentuser.prenom}}<span class="font-weight-light">, {{currentuser.daten | date:'longDate'}}</span>
+              </h3>
+              <div class="h5 font-weight-300">
+                <i class="ni location_pin mr-2"></i>{{currentuser.email}}
+              </div>
+              <div class="h5 font-weight-300">
+                <i class="ni location_pin mr-2"></i>{{currentuser.tel}}
+              </div>
+              <div class="h5 mt-4">
+                <i class="ni business_briefcase-24 mr-2"></i>- Role Admin - 
+              </div>
+              <div>
+                <i class="ni education_hat mr-2"></i>Attijari Bank
+              </div>
+              <hr class="my-4" />
+           
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-md-8">
+        <div class="card card-user">
+          <div class="card-header">
+            <h5 class="card-title">Modifier Profil </h5>
+            <span class="font-weight-light"> Dernière mise à jour: {{currentuser.updatedAt  | date:'short'}}</span>
+          </div>
+          <div class="card-body">
+            <form #fup="ngForm"  (ngSubmit) = "modifierUser(fup)">
+              <div class="row">
+                <div class="col-md-3 px-1">
+                  <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" [ngModel]="currentuser.nom"     required name="nom" >
+                  </div>
+                </div>
+                <div class="col-md-4 pl-1">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Prénom</label>
+                    <input type="text" class="form-control" [ngModel]="currentuser.prenom"     required name="prenom">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Eamil</label>
+                    <input type="email" class="form-control" [ngModel]="currentuser.email"     required name="email">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 pr-1">
+                  <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="number" class="form-control" [ngModel]="currentuser.tel"     required name="tel">
+                  </div>
+                </div>
+
+
+                <div class="col-md-6 pr-1">
+                  <div class="form-group">
+                    <label>Civilité</label>
+                    <select name="civilite" id="civilite" class="form-control" [ngModel]="currentuser.civilite"   >
+                      <option value="">--Please choose an option--</option>
+                      <option value = "Homme" >Homme</option>
+                      <option value="Femme">Femme</option>
+                  </select>
+                  </div>
+                </div>
+
+              </div>
+
+            
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Date de naissance</label><br>
+                    {{currentuser.daten | date:'shortDate'}}
+                    <input type="date" class="form-control" [ngModel]="currentuser.daten" value="currentuser.daten"    required name="daten"> 
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="update ml-auto mr-auto">
+                  <button type="submit" class="btn btn-primary btn-round"> Modifier </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      
+    </div>
+  </div>
+  

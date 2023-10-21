@@ -1,0 +1,273 @@
+<app-navbarv></app-navbarv>
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/img/bc.jpg')">
+        <div class="filter"></div>
+        <div class="content-center">
+            <div class="container">
+                <div class="title-brand">
+                    
+                    <h1 class="presentation-title" style="font-size: 70px;">E-Recrutement</h1>
+                    <br>
+                <p >
+                    Les méthodes de travail progressent et évoluent de jour en jour. Les entreprises sont dans l’obligation de s’adapter et innover rapidement
+                    mais sûrement. Le recrutement suit aujourd’hui cette évolution qui devient une révolution.
+
+                    Appelé aussi recrutement en ligne ou encore recrutement électronique, le e-recrutement consiste à utiliser internet pour attirer un grand 
+                    nombre de candidat qui répondent aux critères recherchés par les recruteurs et qui sont susceptibles d’être embauchés.
+                </p>  
+                </div>
+
+              
+            </div>
+        </div>
+        <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
+     
+
+
+
+        
+    </div>
+
+
+    <div class="main">
+    
+    
+      
+        <div class="section javascript-components">
+            <div>
+            <div class="container" >
+                
+                <div class="tim-title">
+                    <h2>Offres</h2>
+                    <br>
+                </div>
+                <div *ngFor="let p of lesoffres">
+                 
+                      <div *ngIf="p.statusoff==1" class="card">
+                          <div class="card-header card-header-warning">
+                              <h4 class="card-title">{{p.poste}}  </h4>
+                              <p class="card-category">{{p.createdAt | date: 'longDate'}} </p>
+                          </div>
+                          <div class="card-body ">
+                            <p>
+                                mission offre : {{p.mission}}
+                            </p>
+                              <p>
+                                competence offre : {{p.competence}}
+                              </p>
+                             
+                          </div>
+                          <div class="card-footer ">
+                                <div class="text-right">
+                                    <!--Modal Détail Offre-->
+                                    <ng-template #contentdetail let-modal>
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">{{p.poste}}</h4>
+                                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                      <span style="font-style: oblique;">Mission : </span>{{p.mission}} <br> <hr>
+                                            <span style="font-style: oblique;"> Competence :</span> {{p.competence}}<br> <hr>
+                                             <span style="font-style: oblique;">Expérience :</span> {{p.experience}}<br> <hr>
+                                            <span style="font-style: oblique;">Diplome :</span> {{p.diplome}}<br> <hr>
+                                            <span style="font-style: oblique;"> Age Max :</span> {{p.agemax}} ans<br> <hr>
+                                             <span style="font-style: oblique;">Atouts : </span>{{p.atouts}}<br>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-light" (click)="ajoutCandidature(p.id)">Postuler</button>
+                                        </div>
+                                      </ng-template>
+                                    <button type="button" (click)="open(contentdetail)" class="btn btn-lg disabled">Plus Détails ..</button>
+                                </div>
+                          </div>
+                      </div>
+
+                  
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+       
+        <div class="section"> <app-carousselmodal></app-carousselmodal></div>
+       
+        
+
+
+
+     
+        <div class="section section-image section-login" style="background-image: url('assets/img/bc2.jpg');">
+            <div class="container" >
+              <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title" id="login-section">E-Recrutement</h2>
+                    <p class="description">Le recrutement est l'un des secteurs touchés par les nouvelles technologies qui ont rapproché le recruteur de son candidat. Aujourd'hui, le recrutement devient e-recrutement. Le e-recrutement est devenu incontournable pour les recruteurs en recherche continue de nouveaux candidats</p>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12 ml-auto mr-auto">
+                        <div class="card card-register">
+                            <h3 class="title" >Se connecter</h3>
+                            <div class="social-line text-center">
+                               
+                                <a href="https://mail.google.com/" class="btn btn-neutral btn-google btn-just-icon" target="_blank">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </a>
+                               
+                            </div>
+                            <form class="register-form">
+                                
+                                <label>Email </label>
+                                <div class="input-group form-group-no-border" >
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="ni ni-email-83" ></i>
+                                    </span>
+                                  </div>
+                                  <input type="text" class="form-control" placeholder="Email" [(ngModel)]="loginUserData.email"   name="email"  >
+                                </div>
+
+                                <label>Mote de Passe </label>
+                                <div class="input-group form-group-no-border" >
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="ni ni-key-25"></i>
+                                    </span>
+                                  </div>
+                                    <input type="text" class="form-control" placeholder="Mot de Passe" [(ngModel)]="loginUserData.password"  name="password"   >
+                                </div>
+                                <button class="btn btn-danger btn-block btn-round" (click)="loginUser()">Se Connecter</button><br>
+                                <div *ngIf="error" class="alert alert-danger" >{{error}}</div>
+                                
+                                <ng-template #content let-modal>
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="modal-basic-title">Inscription</h4>
+                                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form>
+                                      <div class="form-group">
+                                        <label for="nom">Nom :</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control"  [(ngModel)]="registerUserData.nom" required name="nom">
+                                          </div>
+                                          </div>
+    
+    
+                                      <div class="form-group">
+                                        <label for="prenom">Prénom :</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control"  [(ngModel)]="registerUserData.prenom" required name="prenom">
+                                          </div>
+                                          </div>
+    
+                                          <div class="form-group">
+                                            <label for="tel">Tel :</label>
+                                            <div class="input-group">
+                                              <input type="number" class="form-control"  [(ngModel)]="registerUserData.tel" required name="tel">
+                                              </div>
+                                              </div>
+    
+                                              <div class="form-group">
+                                                <label for="civilite">Civilité :</label>
+                                                <div class="input-group">
+                                                  <select name="civilite" id="civilite" class="form-control"  [(ngModel)]="registerUserData.civilite" >
+                                                    <option value="">--Please choose an option--</option>
+                                                    <option value = "H" >Homme</option>
+                                                    <option value="F">Femme</option>
+                                                </select>
+                                                  </div>
+                                                  </div>
+    
+                                                  
+                                                  <div class="form-group">
+                                                    <label for="daten">Date de Naissance :</label>
+                                                    <div class="input-group">
+                                                      <input type="date" class="form-control"  [(ngModel)]="registerUserData.daten" required name="daten">
+                                                      </div>
+                                                      </div>
+    
+                                              <div class="form-group">
+                                                <label for="email">Eamil :</label>
+                                                <div class="input-group">
+                                                  <input type="email" class="form-control"  [(ngModel)]="registerUserData.email" required name="email">
+                                                  </div>
+                                                  </div>
+    
+    
+                                                              <div class="form-group">
+                                                                <label for="password">Mot de Passe :</label>
+                                                                <div class="input-group">
+                                                                  <input type="password" class="form-control"  [(ngModel)]="registerUserData.password" required name="password">
+                                                                  </div>
+                                                                  </div>
+    
+                                                                  <div class="form-group">
+                                                                    <label for="password">Confirmer Mot de Passe :</label>
+                                                                    <div class="input-group">
+                                                                      <input type="password" class="form-control"   required name="cpassword">
+                                                                      </div>
+                                                                      </div>   
+                                      
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <div class="col text-center">
+                                  
+                                    <button type="button" class="btn btn-info" (click)="ajoutUser()">S'inscrire</button>
+                                    <button type="reset" class="btn btn-info" >Annuler</button>
+                                  </div>
+                                  </div>
+                                </ng-template>
+                               
+                               
+                           
+
+                                
+                             
+                            </form>
+                            
+                           
+                            <div class="col text-center">
+                            <button class="btn btn-lg btn-danger" (click)="openScrollableContent(content)">Creer Compte</button>
+                          </div>
+                            <div class="forgot">
+                                <a href="#" class="btn btn-link btn-danger">Mot de passe oublié?</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+           
+                    
+                      <div class="col-lg-4 col-md-6 col-sm-12 ml-auto mr-auto">
+                        <div class="copyright text-center text-xl-right text-muted">
+                          <span class="copyright">
+                            © {{test | date: 'yyyy'}} Attijari Bank | E-Recrutement
+                        </span>
+                        </div>
+                      </div>
+                     
+                   
+               
+            </div>
+        </div>
+       
+
+         
+      </div>
+
+
+
+</div>
+
+
+    

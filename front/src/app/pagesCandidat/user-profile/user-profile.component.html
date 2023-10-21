@@ -1,0 +1,689 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(./assets/img/bc2.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-3"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Bienvenue {{currentuser.nom}}</h1>
+        <p class="text-white mt-0 mb-5">Ceci est votre page de profil. Vous pouvez consulter et modifier vos informations personnel</p>
+      
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--9">
+  <div class="row">
+  
+    <div class="col-md-6 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img src="assets/img/imgprofile.png" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div class="d-flex justify-content-between">
+            <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4"></a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right"></a>
+          </div>
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+               
+                <div>
+                  <span class="heading">3</span>
+                  <span class="description">Candidatures</span>
+                </div>
+                <div>
+                  <span class="heading">1</span>
+                  <span class="description">Entretiens</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h3>
+              {{currentuser.nom}} {{currentuser.prenom}}<span class="font-weight-light">, 27</span>
+            </h3>
+            <div class="h5 mt-2">
+              <i class="ni business_briefcase-24 mr-2">{{currentuser.email}}</i> ,<i class="ni business_briefcase-24 mr-2">{{currentuser.tel}}</i>
+            </div>
+            <div class="h5 mt-2">
+              <i class="ni business_briefcase-24 mr-2">{{currentuser.tel}}</i>
+            </div>
+            
+            <div>
+              <i class="ni education_hat mr-2">Pays : {{candidatcurr.pays}}</i><i class="ni education_hat mr-2">Gouvernorat : {{candidatcurr.gouvernorat}}</i>
+            </div>
+            
+            <div class="text-center">
+              
+              <hr class="my-4" />
+              <div>
+                <i class="ni education_hat mr-2">Cliquer pour Ajouter :</i>
+              </div>
+            <button (click)="open(contentformation)"  class="btn btn-outline-secondary">Formations</button>
+            <button (click)="open(contentexp)"  class="btn btn-outline-secondary">Expériences</button>
+            <button (click)="open(contenlang)" class="btn btn-outline-secondary">Langues</button>
+          </div>
+          </div>
+         
+            <p class="font-weight-bold"> Formation :</p>
+            <div>
+              <div *ngFor="let formation of lesformations">
+                <ng-container *ngIf="formation.candidat_id == candidatcurr.id">
+                
+                  <div class="card card-stats mb-4 mb-xs-4">
+                    <div class="card-body">
+                      <p class="mt-3 mb-0 text-muted text-sm">
+                        <span class="mb-0">
+                          Niveau d'étude : {{formation.nivetude}} <br>
+                          Diplome : {{formation.diplome}} <br>
+                          Etablissement : {{formation.etablissement}} <br>
+                          Spécialité : {{formation.specialite}} <div class="text-right ">
+                            <button class="btn btn-danger btn-sm" (click)="deleteFormation(formation.id);"> <i class="fas fa-trash" ></i></button>
+                          </div>
+                         </span>
+                      </p>
+                    </div>
+                  </div>
+                 <!----> 
+                </ng-container> 
+
+              </div>
+            </div>
+            <hr style="	border-top: 1px solid #8c8b8b;
+            border-bottom: 1px solid #fff;"> 
+
+            <p class="font-weight-bold">Expérience :</p>
+            <div>
+              <div *ngFor="let experience of lesexperiences">
+                <ng-container *ngIf="experience.candidat_id == candidatcurr.id">
+                
+                  <div class="card card-stats mb-4 mb-xs-4">
+                    <div class="card-body">
+                      <p class="mt-3 mb-0 text-muted text-sm">
+                        <span class="mb-0">
+                          Profil Métier : {{experience.profil}} <br>
+                          Durrée : {{experience.durree}} <br>
+                          Type Contrat : {{experience.contrat}} <br>
+                          Fonction : {{experience.fonction}} <div class="text-right ">
+                            <button class="btn btn-danger btn-sm" (click)="deleteExperience(experience.id);"> <i class="fas fa-trash" ></i></button>
+                          </div>
+                         </span>
+                      </p>
+                    </div>
+                  </div>
+                 <!----> 
+                </ng-container> 
+
+              </div>
+            </div>
+         
+            <!--Modal Formation-->
+            <ng-template #contentformation let-modal style=" width : 300px;">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Ajouter Formation</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" >
+                <form class="register-form" #f="ngForm"  (ngSubmit) = "ajouterFormation(f)">
+                  
+
+
+                  <div class="form-group">
+                    <label for="">Niveau d'étude</label>
+                    <div class="input-group">
+                  <select id="nivetude" name="nivetude" [(ngModel)]="registerFormationData.nivetude"  class="input">
+                    <option value=""></option>
+                        <option value="BTP">BTP </option>
+                        <option value="Baccalauréat">Baccalauréat</option>
+                        <option value="Niveau secondaire">Niveau secondaire</option>
+                        <option value="Niveau CAP / BEP">Niveau CAP / BEP</option>
+                        <option value="Bac + 1">Bac + 1</option>
+                        <option value="BTS">BTS</option>
+                        <option value="Bac + 2">Bac + 2</option>
+                        <option value="Bac + 3" selected="selected">Bac + 3</option>
+                        <option value="Bac + 4">Bac + 4</option>
+                        <option value="Bac + 5">Bac + 5</option>
+                        <option value="Bac + 6">Bac + 6</option>
+                        <option value="Ingénieur">Ingénieur</option>
+                        <option value="Docteur">Docteur</option>
+                        </select>
+                      </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label for="">Diplome</label>
+                        <div class="input-group">
+                        <select id="diplome" [(ngModel)]="registerFormationData.diplome" name="diplome" class="input">
+                          <option value=""></option>
+                              <option value="Architecte">Architecte</option>
+                              <option value="Baccalauréat">Baccalauréat</option>
+                              <option value="Doctorant">Doctorant </option>
+                              <option value="Ingénieur en génie logiciel">Ingénieur en génie logiciel</option>
+                              <option value="Ingénieur en informatique">Ingénieur en informatique</option>
+                              <option value="Ingénieur génie industriel">Ingénieur génie industriel</option>
+                              <option value="Ingénieur Réseau">Ingénieur Réseau </option>
+                              <option value="Ingénieur Réseau et Sécurité ">Ingénieur Réseau et Sécurité </option>
+                              <option value="Juriste">Juriste</option>
+                              <option value="Licence en Finance Islamique">Licence en Finance Islamique</option>
+                              <option value="Licence en finance/ équivalent">Licence en finance/ équivalent</option>
+                              <option value="Licence en gestion">Licence en gestion</option>
+                              <option value="Licence en Informatique">Licence en Informatique</option>
+                              <option value="Licence en Informatique de Gestion">Licence en Informatique de Gestion</option>
+                              <option value="Licence en informatique/ équivalent">Licence en informatique/ équivalent</option>
+                              <option value="Licence en marketing">Licence en marketing</option>
+                              <option value="Licence en Marketing/ équivalent">Licence en Marketing/ équivalent</option>
+                              <option value="Maitrise en finance/ équivalent">Maitrise en finance/ équivalent</option>
+                              <option value="Maitrise en informatique/ équivalent">Maitrise en informatique/ équivalent</option>
+                              <option value="Maitrise en Marketing/ équivalent">Maitrise en Marketing/ équivalent</option>
+                              <option value="Master en Finance Islamique">Master en Finance Islamique</option>
+                              <option value="Master en finance/ équivalent">Master en finance/ équivalent</option>
+                              <option value="Master en gestion">Master en gestion</option>
+                              <option value="Master en informatique">Master en informatique</option>
+                              <option value="Master en informatique/ équivalent">Master en informatique/ équivalent</option>
+                              <option value="Master en marketing">Master en marketing</option>
+                              <option value="Master en Marketing/ équivalent">Master en Marketing/ équivalent</option>
+                              <option value="Technicien en commerce / équivalent">Technicien en commerce / équivalent</option>
+                              <option value="Technicien en comptabilité / équivalent">Technicien en comptabilité / équivalent</option>
+                              <option value="Technicien en gestion / équivalent">Technicien en gestion / équivalent</option>
+                              <option value="Technicien en informatique/ équivalent" selected="selected">Technicien en informatique/ équivalent</option>
+                              <option value="Technicien logisticien">Technicien logisticien</option>
+                              <option value="x-Autres">x-Autres</option>
+                              </select>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group" style="width:fit-content">
+                        <label for="">Etablissement</label>
+                        <div class="input-group">
+                        <select id="etablissement" name="etablissement" [(ngModel)]="registerFormationData.etablissement" class="input" style="width:400px;  ">
+                          <option value=""></option>
+                          <option value="Centre sectoriel aux métiers du tertiaire de Gammarth">Centre sectoriel aux métiers du tertiaire de Gammarth</option>
+                          <option value="Ecole Nationale d'ingénieurs de Bizerte">Ecole Nationale d'ingénieurs de Bizerte</option>
+                          <option value="Ecole Nationale d'Ingénieurs de Sfax">Ecole Nationale d'Ingénieurs de Sfax</option>
+                          <option value="Ecole Nationale d'Ingénieurs de Tunis">Ecole Nationale d'Ingénieurs de Tunis</option>
+                          <option value="Ecole Nationale des Sciences de l'Informatique">Ecole Nationale des Sciences de l'Informatique</option>
+                          <option value="Ecole Polytechnique de Tunisie">Ecole Polytechnique de Tunisie</option>
+                          <option value="Ecole Supérieur de la statisatique et de l'Analyse de l'Information">Ecole Supérieur de la statisatique et de l'Analyse de l'Information</option>
+                          <option value="Ecole Supérieure de Commerce de Sfax">Ecole Supérieure de Commerce de Sfax</option>
+                          <option value="Ecole Supérieure de Commerce de Tunis">Ecole Supérieure de Commerce de Tunis</option>
+                          <option value="Ecole Supérieure D'économie Numerique Manouba"selected="selected">Ecole Supérieure D'économie Numerique Manouba</option>
+                          <option value="Ecole Supérieure de Technologie et d'Informatique à Carthage">Ecole Supérieure de Technologie et d'Informatique à Carthage</option>
+                          <option value="Ecole Supérieure des Sciences Economiques et Commerciales de Tunis" >Ecole Supérieure des Sciences Economiques et Commerciales de Tunis</option>
+                          <option value="Ecole Supérieure des Sciences et Techniques de Tunis">Ecole Supérieure des Sciences et Techniques de Tunis</option>
+                          <option value="Ecole Supérieure des Statistiques et d'Analyse de l'Information">Ecole Supérieure des Statistiques et d'Analyse de l'Information</option>
+                          <option value="Faculté de Droit et des Sciences Politiques de Tunis">Faculté de Droit et des Sciences Politiques de Tunis</option>
+                          <option value="Faculté des Sciences de Bizerte">Faculté des Sciences de Bizerte</option>
+                          <option value="Faculté des Sciences Economique et de Gestion de Jendouba">Faculté des Sciences Economique et de Gestion de Jendouba</option>
+                          <option value="Faculté des Sciences Economique et de Gestion de Sfax">Faculté des Sciences Economique et de Gestion de Sfax</option>
+                          <option value="Faculté des Sciences Economique et de Gestion de Sousse">Faculté des Sciences Economique et de Gestion de Sousse</option>
+                          <option value="Faculté des Sciences Economique et de Gestion de Tunis">Faculté des Sciences Economique et de Gestion de Tunis</option>
+                          <option value="Faculté des Sciences Economiques et de Gestion de Nabeul">Faculté des Sciences Economiques et de Gestion de Nabeul</option>
+                          <option value="Faculté des Sciences Juridiques Politiques et Sociales de Tunis">Faculté des Sciences Juridiques Politiques et Sociales de Tunis</option>
+                          <option value="Faculté des Sciences Mathématiques, Physiques et Naturelles de Tunis">Faculté des Sciences Mathématiques, Physiques et Naturelles de Tunis</option>
+                          <option value="Institut des Hautes Etudes Commerciales de Carthage">Institut des Hautes Etudes Commerciales de Carthage</option>
+                          <option value="Institut des Hautes Etudes Commerciales de Sfax">Institut des Hautes Etudes Commerciales de Sfax</option>
+                          <option value="Institut des Hautes Etudes Commerciales de Sousse">Institut des Hautes Etudes Commerciales de Sousse</option>
+                          <option value="Institut National des Sciences Appliquées et de Technologie">Institut National des Sciences Appliquées et de Technologie</option>
+                          <option value="Institut Préparatoire aux Etudes d`Ingénieurs de Tunis">Institut Préparatoire aux Etudes d`Ingénieurs de Tunis</option>
+                          <option value="Institut Préparatoire aux Etudes d'Ingénieur de Bizerte">Institut Préparatoire aux Etudes d'Ingénieur de Bizerte</option>
+                          <option value="Institut Préparatoire aux Etudes d'Ingénieur Nabeul">Institut Préparatoire aux Etudes d'Ingénieur Nabeul</option>
+                          <option value="Institut Préparatoire aux Etudes d'Ingénieurs d'El Manar">Institut Préparatoire aux Etudes d'Ingénieurs d'El Manar</option>
+                          <option value="Institut Préparatoire aux Etudes Scientifiques et Techniques de la Marsa">Institut Préparatoire aux Etudes Scientifiques et Techniques de la Marsa</option>
+                          <option value="Institut Supérieur d'Informatique d'El Manar">Institut Supérieur d'Informatique d'El Manar</option>
+                          <option value="Institut Supérieur de Commerce et de Comptabilité de Bizerte">Institut Supérieur de Commerce et de Comptabilité de Bizerte</option>
+                          <option value="Institut Supérieur de Comptabilité et d'Administration des Entreprises">Institut Supérieur de Comptabilité et d'Administration des Entreprises</option>
+                          <option value="Institut Supérieur de Finances et de Fiscalité de Sousse">Institut Supérieur de Finances et de Fiscalité de Sousse</option>
+                          <option value="Institut Supérieur de Gestion de Tunis">Institut Supérieur de Gestion de Tunis</option>
+                          <option value="Institut Supérieur des Etudes Technologiques de Charguia">Institut Supérieur des Etudes Technologiques de Charguia</option>
+                          <option value="Institut Supérieur des Etudes Technologiques de Jerba">Institut Supérieur des Etudes Technologiques de Jerba</option>
+                          <option value="Institut Supérieur des Etudes Technologiques en Communications">Institut Supérieur des Etudes Technologiques en Communications (El Ghazala)</option>
+                          <option value="Institut Supérieur des Langues Appliquées et d'Informatique de Nabeul">Institut Supérieur des Langues Appliquées et d'Informatique de Nabeul</option>
+                          <option value="Institut Supérieur des Sciences Appliquées et de la Technologie de Mateur">Institut Supérieur des Sciences Appliquées et de la Technologie de Mateur</option>
+                          <option value="Iset'Com">Iset'Com</option>
+                          <option value="Sup'Com">Sup'Com</option>
+                          <option value="Tunis Business School">Tunis Business School</option>
+                          <option value="x- Autre">x- Autre</option>
+                              </select>
+                            </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="specialite">Spécialité</label>
+                        <div class="input-group">
+                        <select id="specialite" name="specialite" [(ngModel)]="registerFormationData.specialite" class="specialite">
+                          <option value=""></option>
+                              <option value=" Dévloppement Informatique "> Dévloppement Informatique </option>
+                              <option value="BTP / Génie Civil">BTP / Génie Civil </option>
+                              <option value="Commerce / Vente / Marketing">Commerce / Vente / Marketing </option>
+                              <option value="Commerce International">Commerce International</option>
+                              <option value="Communication / Médias">Communication / Médias </option>
+                              <option value="Comptabilité / Gestion / Audit ">Comptabilité / Gestion / Audit </option>
+                              <option value="Conseil / Organisation">Conseil / Organisation </option>
+                              <option value="Droit / Fiscal">Droit / Fiscal </option>
+                              <option value="Finance">Finance </option>
+                              <option value="Gestion de Patrimoine">Gestion de Patrimoine </option>
+                              <option value="Informatique de Gestion" selected="selected">Informatique de Gestion</option>
+                              <option value="Ingénierie Générale">Ingénierie Générale </option>
+                              <option value="Langues">Langues </option>
+                              <option value="Médecine">Médecine </option>
+                              <option value="Marketing">Marketing</option>
+                              <option value="Mathématiques / Statistiques / Actuariat">Mathématiques / Statistiques / Actuariat </option>
+                              <option value="Microfinance">Microfinance</option>
+                              <option value="Réseau Informatique">Réseau Informatique</option>
+                              <option value="Sciences (Physique, Chimie, Biologie)">Sciences (Physique, Chimie, Biologie) </option>
+                              <option value="Sciences économiques ">Sciences économiques </option>
+                              <option value="Sciences Humaines et Sociales / RH">Sciences Humaines et Sociales / RH </option>
+                              <option value="Sciences Politiques /Juridique">Sciences Politiques /Juridique</option>
+                              <option value="Secrétariat">Secrétariat</option>
+                              <option value="x- Autre">x- Autre </option>
+                              </select>
+                            </div>
+                      </div>
+              
+              
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-dark" >Enregistrer</button>
+              </div>
+            </form>
+          </div>
+            </ng-template>
+
+
+            <!--Modal Experience-->
+            <ng-template #contentexp let-modal style=" width : 300px;">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Ajouter Expérience</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" >
+                <form class="register-form" #fexp="ngForm"  (ngSubmit) = "ajouterExperience()">
+                  
+
+
+                  <div class="form-group">
+                    <label for="">Profil</label>
+                    <div class="input-group">
+                      <select id="profil" name="profil" [(ngModel)]="registerExperienceData.profil" class="profil">
+                            <option value="Achats">Achats </option>
+                            <option value="Architecture / Urbanisme / Immobilier">Architecture / Urbanisme / Immobilier </option>
+                            <option value="Assurance">Assurance </option>
+                            <option value="BTP / Génie Civil">BTP / Génie Civil </option>
+                            <option value="Commerce / Vente / Marketing ">Commerce / Vente / Marketing </option>
+                            <option value="Communication / Médias">Communication / Médias </option>
+                            <option value="Comptabilité / Gestion / Audit">Comptabilité / Gestion / Audit </option>
+                            <option value="Conseil / Organisation">Conseil / Organisation </option>
+                            <option value="Droit / Fiscal">Droit / Fiscal </option>
+                            <option value="Finance">Finance </option>
+                            <option value="Gestion de Patrimoine">Gestion de Patrimoine </option>
+                            <option value="Informatique">Informatique </option>
+                            <option value="Ingénierie Générale">Ingénierie Générale </option>
+                            <option value="Langues">Langues</option>
+                            <option value="Médecine">Médecine </option>
+                            <option value="Mathématiques / Statistiques / Actuariat">Mathématiques / Statistiques / Actuariat </option>
+                            <option value="Sciences (Physique, Chimie, Biologie)">Sciences (Physique, Chimie, Biologie) </option>
+                            <option value="Sciences (Physique, Chimie, Biologie)">Sciences (Physique, Chimie, Biologie) </option>
+                            <option value="Sciences économiques">Sciences économiques </option>
+                            <option value="Sciences Humaines et Sociales / RH ">Sciences Humaines et Sociales / RH </option>
+                            <option value="Sciences Politiques">Sciences Politiques </option>
+                            <option value="Secrétariat" selected="selected">Secrétariat </option>
+                            <option value="Stage d'été">Stage d'été</option>
+                            <option value="x- Autre">x- Autre </option>
+                            </select>
+                      </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label for="">Durée Expérience</label>
+                        <div class="input-group">
+                          <select  id="durree" name="durree" [(ngModel)]="registerExperienceData.durree" class="durree">
+                                <option value="Sans expérience">Sans expérience</option>
+                                <option value="de 6 mois">&lt; de 6 mois</option>
+                                <option value="6 à 12 mois" selected="selected">6 à 12 mois</option>
+                                <option value="1 à 3 ans">1 à 3 ans</option>
+                                <option value="4 à 6 ans">4 à 6 ans</option>
+                                <option value="7 à 10 ans">7 à 10 ans</option>
+                                <option value="11 ans et plus">11 ans et plus</option>
+                                </select>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group" style="width:fit-content">
+                        <label for="">Contrat</label>
+                        <div class="input-group">
+                          <select  id="contrat" name="contrat" [(ngModel)]="registerExperienceData.contrat" class="contrat">
+                            <option value=""></option>
+                                <option value="Alternance - Apprentissage">Alternance - Apprentissage</option>
+                                <option value="aucun">aucun</option>
+                                <option value="CDD">CDD</option>
+                                <option value="CDD Saisonnier - Etudiant">CDD Saisonnier - Etudiant</option>
+                                <option value="CDI">CDI</option>
+                                <option value="Contrat de professionnalisation">Contrat de professionnalisation</option>
+                                <option value="SIVP">SIVP</option>
+                                <option value="Stage" selected="selected">Stage</option>
+                                </select>
+                            </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="specialite">Fonction</label>
+                        <div class="input-group">
+                          <select id="fonction" name="fonction" [(ngModel)]="registerExperienceData.fonction" class="fonction">
+                            <option value=""></option>
+                                <option value="Chargé Développement Commercial" selected="selected">Chargé Développement Commercial</option>
+                                <option value="Chargé de clientèle">Chargé de clientèle</option>
+                                <option value="Chargé du recouvrement commercial">Chargé du recouvrement commercial</option>
+                                <option value="Chargé Ijara">Chargé Ijara</option>
+                                <option value="Commercial de Guichet">Commercial de Guichet</option>
+                                <option value="Responsable D’agence">Responsable D’agence</option>
+                                <option value="Responsable Guichet/Guichetie">Responsable Guichet/Guichetier</option>
+                                <option value="X-autres">X-autres</option>
+                                </select>
+                            </div>
+                      </div>
+              
+              
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-dark" >Enregistrer</button>
+              </div>
+            </form>
+          </div>
+            </ng-template>
+
+
+
+            <!--Modal Langue-->
+            <ng-template #contenlang let-modal style=" width : 300px;">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Ajouter Langue</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" >
+                <form class="register-form" #flang="ngForm"  (ngSubmit) = "ajouterLangue()">
+                  
+
+
+                  
+
+                      <div class="form-group">
+                        <label for="">Langue :</label>
+                        <div class="input-group">
+                          <select id="nomlangue" name="nomlangue" [(ngModel)]="registerLangueData.nomlangue" class="nomlangue">
+                                <option selected="selected" value="Allemand">Allemand</option>
+                                <option value="Anglais">Anglais</option>
+                                <option value="Arabe">Arabe</option>
+                                <option value="Chinois Cantonais">Chinois Cantonais</option>
+                                <option value="Chinois Mandarin">Chinois Mandarin</option>
+                                <option value="Coréen">Coréen</option>
+                                <option value="Espagnol">Espagnol</option>
+                                <option value="Français">Français </option>
+                                <option value="Grec">Grec</option>
+                                <option value="Italien">Italien</option>
+                                <option value="Polonais">Polonais</option>
+                                <option value="Roumain">Roumain</option>
+                                <option value="Russe">Russe</option>
+                                <option value="Suédois">Suédois</option>
+                                <option value="Tchéque">Tchéque</option>
+                                <option value="Turc" selected="selected">Turc</option>
+                                </select>
+                        </div>
+                      </div>
+
+
+
+
+                      <div class="form-group">
+                        <label for="">Niveau :</label>
+                        <div class="input-group">
+                          <select  id="niveau" name="niveau" [(ngModel)]="registerLangueData.niveau" class="niveau">
+                            <option value=""></option>
+                                <option value="Niveau A (Excellent)">Niveau A (Excellent)</option>
+                                <option value="Niveau B (moyen)">Niveau B (moyen)</option>
+                                <option value="Niveau C (Débutant)" selected="selected">Niveau C (Débutant)</option>
+                                </select>
+                        </div>
+                      </div>
+              
+              
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-dark" >Enregistrer</button>
+              </div>
+            </form>
+          </div>
+            </ng-template>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Modifier Profile {{currentuser.nom}}</h5>
+          <span> Last Update : {{currentuser.updatedAt  | date:'short'}}</span>
+        </div>
+        <div class="card-body">
+          <form #fup="ngForm"  (ngSubmit) = "modifierUser(fup)">
+            <div class="row">
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input type="text" class="form-control" [ngModel]="currentuser.nom"     required name="nom" >
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Prénom</label>
+                  <input type="text" class="form-control" [ngModel]="currentuser.prenom"     required name="prenom">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Eamil</label>
+                  <input type="email" class="form-control" [ngModel]="currentuser.email"     required name="email">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Téléphone</label>
+                  <input type="number" class="form-control" [ngModel]="currentuser.tel"     required name="tel">
+                </div>
+              </div>
+
+
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Civilité</label>
+                  <select name="civilite" id="civilite" class="form-control" [ngModel]="currentuser.civilite"   >
+                    <option value="">--Please choose an option--</option>
+                    <option value = "Homme" >Homme</option>
+                    <option value="Femme">Femme</option>
+                </select>
+                </div>
+              </div>
+
+            </div>
+
+          
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Date de naissance </label><br>
+                  {{currentuser.daten | date:'shortDate'}}
+                  <input type="date" class="form-control" [ngModel]="currentuser.daten" value="currentuser.daten"    required name="daten"> 
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 px-1">
+              <div class="form-group">
+                <label>Code Postal</label>
+                <input type="number" class="form-control" [ngModel]="candidatcurr.codepostal"     required name="codepostal" >
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-3 px-1">
+              <div class="form-group">
+                <label>Pays</label>
+                <input type="text" class="form-control" [ngModel]="candidatcurr.pays"     required name="pays" >
+              </div>
+            </div>
+            <div class="col-md-3 px-1">
+              <div class="form-group">
+                <label>Gouvernorat</label>
+                <input type="text" class="form-control" [ngModel]="candidatcurr.gouvernorat"     required name="gouvernorat" >
+              </div>
+            </div>
+          </div>
+           
+         
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Image </label><br>
+              
+                  <input type="file" class="form-control"  (change)="upload($event)"   required name="image"> 
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round"> Modifier </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+
+
+
+
+<br>
+      <!--langue affichage -->
+      <div class="col-md-12 order-xl-2 mb-3 mb-xl-0">
+        <div class="card card-profile shadow">
+          <div class="row justify-content-center">
+           
+          </div>
+         
+          <div class="card-body pt-0 pt-md-4">
+            
+           
+              <p class="font-weight-bold">Langue :</p>
+              <div>
+                <div *ngFor="let langue of leslangues">
+                  <ng-container *ngIf="langue.candidat_id == candidatcurr.id">
+                  
+                    <div class="card card-stats mb-4 mb-xs-4">
+                      <div class="card-body">
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                          <span class="mb-0">
+                            Langue : {{langue.nomlangue}} <br>
+                           Niveau : {{langue.niveau}}<div class="text-right ">
+                              <button class="btn btn-danger btn-sm" (click)="deleteLangue(langue.id);"> <i class="fas fa-trash" ></i></button>
+                            </div>
+                           </span>
+                        </p>
+                      </div>
+                    </div>
+                   <!----> 
+                  </ng-container> 
+  
+                </div>
+              </div>
+  
+              
+              <div class="text-center">
+                <hr class="my-4" />
+              <button (click)="open(contentformation)"  class="btn btn-outline-secondary">Formation</button>
+              <button (click)="open(contentexp)"  class="btn btn-outline-secondary">Expérience</button>
+              <button (click)="open(contenlang)" class="btn btn-outline-secondary">Langue</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!--sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd-->
+     
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  </div>
+</div>
+
+

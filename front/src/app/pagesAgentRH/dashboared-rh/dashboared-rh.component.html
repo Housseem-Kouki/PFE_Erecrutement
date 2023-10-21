@@ -1,0 +1,264 @@
+<div class=" pb-8 pt-5 pt-lg-8 d-flex "  style="min-height: 800px; background-size: cover; background-image: url(./assets/img/bc2.jpg);">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-3"></span>
+
+  <!-- Header container -->
+  <div class=" d-flex align-items-center">
+    <div class="container-fluid">
+      <br>
+      <div class="header-body">
+        <!-- Card stats -->
+        <div class="row">
+     
+         
+          <div class="col-sm ">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body" >
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Nombre des Offres</h5>
+                    <span class="h2 font-weight-bold mb-0">{{nbroffres}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-red text-white rounded-circle shadow">
+                      <i class="fas fa-briefcase"></i>
+                    </div>
+                  </div>
+                </div>
+          
+                  <div class="row">
+                    <span class="text-success" style="font-size:medium;">{{nbroffresaff}}   Offres Demandées</span> &nbsp;  &nbsp; &nbsp; &nbsp;
+                     <span class="text-danger" style="font-size:medium;"> {{nbroffresmas}}   Offres Masquées </span>
+                  </div>
+                  
+            
+             
+              </div>
+            </div>
+          </div>
+          <div class="col-sm ">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body" >
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Nombre des Candidats</h5>
+                    <span class="h2 font-weight-bold mb-0">{{nbrcandidats}}</span>
+                  
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
+                      <i class="fas fa-users"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <span class="text-success" style="font-size:medium; ">{{nbrhomme}} <i class="fas fa-male"></i> Hommes</span> &nbsp;  &nbsp; &nbsp; &nbsp;
+                   <span class="text-danger" style="font-size:medium;"> {{nbrfemme}}  <i class="fas fa-female"></i> Femmes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        
+
+
+          <div class="col-sm ">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body" >
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Nombre des Entretiens</h5>
+                    <span class="h2 font-weight-bold mb-0">{{nbrentretiens}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-orange text-white rounded-circle shadow">
+                      <i class="far fa-clipboard"></i>
+                    </div>
+                  </div>
+                </div>
+          
+                  <div class="row">
+                    <span class="text-success" style="font-size:medium;">{{nbrenpres}}  Présentiel </span> &nbsp;  &nbsp; &nbsp; &nbsp;
+                     <span class="text-danger" style="font-size:medium;"> {{nbrenligne}}   En Ligne</span>
+                  </div>
+                  
+            
+             
+              </div>
+            </div>
+          </div>
+        </div><br>
+        <div class="row">
+          
+          <div class="col-xl-6">
+            <div class="card shadow">
+              <div class="card-header border-0">
+                <div>
+              
+                    <div class="card card-stats mb-4 mb-xl-0">
+                      <div class="card-body" >
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="card-title text-uppercase text-muted mb-0">Nombre des Candidatures</h5>
+                            <span class="h2 font-weight-bold mb-0">{{nbrcandidatures}}</span>
+                          </div>
+                          <div class="col-auto">
+                            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                              <i class="fas fa-envelope"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+               
+              </div>
+              <div class="table-responsive">
+                <!-- Projects table -->
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                   
+                    <tr>
+                      <th scope="col">Etat</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        Candidatures Acceptés
+                      </th>
+                      <td>
+                        {{candidaccept}}
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">{{percentacc}} %</span>
+                        
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                       Candidatures Réfusées
+                      </th>
+                      <td>
+                        {{candidtrefus}} 
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2"> {{percentref}} %</span>
+                         
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        Candidatures En Cours
+                      </th>
+                      <td>
+                        {{candidcours}}
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">{{percentcours}} %</span>
+                      
+                        </div>
+                      </td>
+                    </tr>
+                  
+                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="card shadow">
+              <div class="card-header border-0">
+                <div>
+              
+                    <div class="card card-stats mb-4 mb-xl-0">
+                      <div class="card-body" >
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="card-title text-uppercase text-muted mb-0">Nombre des Candidatures par Offre</h5>
+                           
+                          </div>
+                          <div class="col-auto">
+                           
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+               
+              </div>
+              <div class="table-responsive">
+                <!-- Projects table -->
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                   
+                    <tr>
+                      <th scope="col">Poste</th>
+                      <th scope="col">Status Offre </th>
+                      <th scope="col">Nombre candidature</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let offre of lesoffres ">
+                      <th scope="row">
+                        {{offre.poste}}
+                      </th>
+                      <td>
+                        <ng-container *ngIf="offre.statusoff == 1">
+                          <span class="badge badge-dot mr-4"><i class="bg-success"></i>Publié</span> 
+                        </ng-container>
+                        <ng-container *ngIf="offre.statusoff == 0">
+                          <span class="badge badge-dot mr-4"><i class="bg-danger"></i>Masquer</span> 
+                        </ng-container>
+                      </td>
+                      <td>
+                       
+                    
+                         
+                          
+                            <div ngbDropdown>
+                              <button   type="button" (click)="nbrcandidature(offre.id)"   class="btn btn-sm btn-outline-primary mr-4" id="dropdownConfig" ngbDropdownToggle>
+                                <i class="fas fa-arrow-down"></i>
+                              </button>
+                              <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+                          
+                                <div> {{nbrcand}}</div>
+                              </div>
+                            </div>
+                      </td>
+                    </tr>
+                   
+                  
+                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+          
+       
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+
+

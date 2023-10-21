@@ -1,0 +1,83 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(./assets/img/bc2.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-3"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-8 text-white"> {{currentuser.nom}}</h1>
+        <p class="text-white mt-0 mb-8">
+          
+          Vous puvez consulter les offres d'emplois de Attijari Bank , et postuler votre candidature 
+        </p>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mt--9">
+  <div *ngFor="let offre of lesoffres"> 
+    <ng-container *ngIf="offre.statusoff == 1 ">
+<div class="col-md-12 order-xl-2 mb-5 mb-xl-0">
+  <div class="card card-profile shadow">
+    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+      <div class="d-flex justify-content-between">
+ 
+        <a href="javascript:void(0)" (click)="ajoutCandidature(offre.id)" class="btn btn-sm btn-info mr-4">Postuler </a>
+        <div> <h2> {{offre.poste}} </h2></div>
+    
+        <a href="javascript:void(0)" class="btn btn-sm btn-default mr-4"> {{offre.createdAt | date:'shortDate'}} </a>
+      </div>
+    </div>
+    <div class="card-body pt-0 pt-md-1">
+      <div class="row">
+        <div class="col">
+          <div class="card-profile-stats d-flex justify-content-left mt-md-5">
+            <div >
+             <div class="row">
+           <i class="ni business_briefcase-24 mr-2">Mission :</i> <br>
+           <span class="font-weight-light">{{offre.mission}} </span>
+            </div><br>
+            <div class="row">
+              <i class="ni business_briefcase-24 mr-2">Diplome :</i> 
+              <span class="font-weight-light">  {{offre.diplome}}</span>
+               </div><br>
+               <div class="row">
+                <i class="ni business_briefcase-24 mr-2">Expérience :</i> 
+                   <span class="font-weight-light">  {{offre.experience}}</span>
+                 </div><br>
+                 <div class="row">
+                  <i class="ni business_briefcase-24 mr-2">Compétence :</i> <br>
+                    <span class="font-weight-light">  {{offre.competence}}</span>
+                   </div><br>
+                   <div class="row">
+                    <i class="ni business_briefcase-24 mr-2">Age Max :</i> 
+                       <span class="font-weight-light">  {{offre.agemax}}</span>
+                     </div><br>
+                     <div class="row">
+                      <i class="ni business_briefcase-24 mr-2">Atouts :</i> <br>
+                       <span class="font-weight-light">  {{offre.atouts}}</span>
+                       </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+        <hr style="	border-top: 1px solid #8c8b8b;
+        border-bottom: 1px solid #fff;"> 
+
+    </div>
+  </div><br><br><br>
+</div>
+</ng-container><!--Test offre masquer ou publier -->
+</div><!--end parcour les offres-->
+</div>
+
+
+
+
+
+
+
